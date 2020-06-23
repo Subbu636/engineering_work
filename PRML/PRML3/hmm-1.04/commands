@@ -1,0 +1,12 @@
+cat oned.hmm fourd.hmm sixd.hmm od.hmm zd.hmm > dnumbers.hmm
+one - 10
+four - 11
+six - 12
+o - 10
+z - 20
+./test_hmm dnumbers.hmm 1.hmm.hmm && mv "alphaout" "one_dev_prob.txt"
+./test_hmm dnumbers.hmm 4.hmm.hmm && mv "alphaout" "four_dev_prob.txt"
+./test_hmm dnumbers.hmm 6.hmm.hmm && mv "alphaout" "six_dev_prob.txt"
+./test_hmm dnumbers.hmm o.hmm.hmm && mv "alphaout" "o_dev_prob.txt"
+./test_hmm dnumbers.hmm z.hmm.hmm && mv "alphaout" "z_dev_prob.txt"
+

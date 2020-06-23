@@ -1,0 +1,26 @@
+# Site settings
+title: CS3100 Fall 2019
+subtitle: Paradigms of Programming
+baseurl: "/cs3100_f19" # the subpath of your site, e.g. /blog/
+url: "http://kayceesrk.github.io" # the base hostname & protocol for your site
+syllabus: "http://www.cse.iitm.ac.in/course_details.php?arg=MTk="
+githubdir: "kayceesrk/cs3100_f19"
+
+# Author/user information
+email: kcsrk@iitm.ac.in
+twitter_username: kcsrk
+github_username:  kayceesrk
+authorurl: "http://kcsrk.info"
+address: |
+    Department of Computer Science and Engineering
+    BSB 371, Indian Institute of Technology, Madras
+    Chennai, India 600036
+
+# Build settings
+markdown: kramdown
+
+# Other options
+permalink: blog/:year/:month/:title
+excerpt_separator: "<!--more-->"
+
+include: ['_images', '_css']

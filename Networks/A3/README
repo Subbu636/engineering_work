@@ -1,0 +1,6 @@
+To compile the code do the following
+		make clean
+		make prox
+		./prox (PORT NO)
+		Open other terminal to send Client Requests
+		For Multiple Clients open Multiple Terminals ie To check concurrency

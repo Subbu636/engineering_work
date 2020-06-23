@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+	<html class="sl-root decks export offline loaded">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>OS_Project_7</title>
+
+		<meta name="description" content="Operating Systems - Project 7">
+
+		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
+
+
+
+		<!-- User CSS -->
+		<style id="user-css-output" type="text/css">
+			.reveal ul {
+  list-style-position: outside;
+}
+.reveal li::before {
+  color: red;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+.reveal .slide-number {
+  font-size: 100%;
+  font-family: "Overpass 2", sans-serif;
+  color: #95afc0 !important;
+  margin-right: 100px;
+}
+.reveal .slides a {
+  color: #e67e22;
+}
+.reveal .controls button {
+  color: #95afc0;
+}
+.reveal .progress span {
+  background: #95afc0;
+}
+.reveal .progress {
+  height: 0.5rem;
+}
+
+		</style>
+	</head>
+	<body class="reveal-viewport theme-font-overpass2 theme-color-white-blue">
+		<div class="reveal">
+			<div class="slides">
+				<section class="stack" data-id="7baa3a91f93816c38776babcba1a145b"><section data-id="fcf4b7bb6340924a9a7942c3721526a9"><div class="sl-block" data-block-type="text" style="width: 806px; left: 80px; top: 74px; height: auto;" data-block-id="9c24fad38299c76dd61c28bd9520b7ee"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 17; border-width: 1px; background-color: rgb(255, 255, 255); font-size: 129%;">
+<p style="text-align:left"><span style="font-size:1.4em"> Implementation of Waitpid in xv6</span></p>
+</div></div>
+
+<div class="sl-block" data-block-type="text" style="width: 368px; left: 512px; top: 524px; height: auto;" data-block-id="74c6835d70ea3da538f843dbd76dd5e9"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<p style="text-align:left"><span style="color:#696969"><span style="font-size:0.9em">CS 3500</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 368px; left: 512px; top: 490px; height: auto;" data-block-id="dced0b9e865487fdc51b24443c05be83"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;" dir="ui">
+<p style="text-align:left"><span style="font-size:0.9em">Project 5</span></p>
+</div></div>
+
+<div class="sl-block" data-block-type="image" style="width: 363px; height: 168px; left: 74px; top: 322px; min-width: 4px; min-height: 4px;" data-block-id="af1439edeb73b5fd8a05cc4a8e120210"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="970" data-natural-height="450" data-lazy-loaded="" data-src="os_proj_7/ff2b7adf2f463dc7ba95b208e61dd088.jpg"></div></div>
+
+<div class="sl-block" data-block-type="text" style="width: 640px; left: 95px; top: 174px; height: auto;" data-block-id="700e673b535b866ebee4cfd06ba17881"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 14; text-align: left;">
+<p><a href="https://github.com/aakarshd/OS_Project" target="_blank">Link for accompanying code/files.</a></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 368px; left: 512px; top: 355px; height: auto;" data-block-id="3a0c84dba9f9819bee50ee3702c49c8c"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 15;">
+<p style="text-align:left"><span style="font-size:0.9em">SUBHASH ARABHI    (CS17B005)</span></p>
+
+<p style="text-align:left"> </p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 368px; left: 512px; top: 395px; height: auto;" data-block-id="6d99ff7e4bcc7acebdf7a1f86c362210"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 16;">
+<p style="text-align:left"><span style="font-size:25.2px">AAKARSH DARLA      (<span style="font-size:1.0em">CS14B001</span>)</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 388px; top: 295px;" data-block-id="60f7049e72af8566cd48950ddf327ba4"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18;">
+<p>TEAM SE7EN</p>
+</div></div></section><section data-id="d86a4ac326786554d3e147c685d86ac3">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 909px; height: 460px; left: 18px; top: 112px;" data-block-id="712ebc7955f45d33f74be46ac032952e"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="2142" data-natural-height="1085" data-lazy-loaded="" data-src="os_proj_7/d12e660e0842270e824ece59fd5e8478.jpg"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 150px; top: 35px;" data-block-id="1e568ca3a44560a7bcb757495b910bba"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p><span style="font-size:1.2em"> Graphical representation</span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 450px; top: 647px;" data-block-id="8997de814150635f76b35e21531ca45d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p>Design Approach 1/2</p>
+</div></div></section><section data-id="dbd7f1afa555dc7ed4a2cbbfce1ce178"><div class="sl-block" data-block-type="text" style="width: 806px; left: 80px; top: 70px; height: auto;" data-block-id="a31ae9fb21e3e562c160df85ae0423d3"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<p style="text-align:left"><span style="font-size:56px">Problem Statement Status</span></p>
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 640px; left: 80px; top: 174px;" data-block-id="e24720845a5c4e2582d82fa2cf4a4f02"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; line-height: 1.677;" data-has-line-height="">
+<p style="text-align:left"><span style="font-size:1.0em"><strong><span style="color:#00FF00">Level 1</span> </strong>: Implenting waitpid in xv6,  in additon to already implemented wait. <span style="color:#008000"><strong>[COMPLETED]</strong></span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 640px; left: 80px; top: 298px;" data-block-id="656902a5310f148344d81a4f2149fdf5"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; line-height: 1.456;" data-has-line-height="">
+<p style="text-align:left"><span style="color:#FF8C00"><strong>Level 2</strong></span> :  <span style="font-size:1.0em">Adding support for wait pid(0) which waits for all child processes and wait pid(-1) which waits for a random child. <span style="color:#008000"><strong>[COMPLETED]</strong></span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 640px; left: 80px; top: 462px;" data-block-id="66c5ad787bdc4cabb8b793e83a511dbe"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; line-height: 1.846;" data-has-line-height="">
+<p style="text-align:left"><strong><span style="color:#FF0000">Level 3</span></strong> :  Supporting a reference argument to get the PIDs of terminated children. <span style="font-size:1.0em"><span style="color:#008000"><strong>[COMPLETED]</strong></span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 445px; top: 642px;" data-block-id="9d0057f1056c504826b609e8ba0abb99"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p>Design Approach 2/2</p>
+</div></div></section><section data-id="c39f6c0e1fcca035c1f88a01209e5fb7">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 734px; left: 56px; top: 70px;" data-block-id="67ea4dc6e72956d6fe5529d3bcc8172e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left; line-height: 2.535;" dir="ui" data-has-line-height="">
+<ul>
+	<li> Adding new routines to define the <strong>waitpid</strong> system calls in header files.</li>
+	<li> Understanding <strong>wait</strong> in<strong> proc.c</strong> and recreating it with additional features, using <strong>process table locks</strong>.</li>
+	<li>Passing a pointer argument to syscall (as syscalls dont take arguments and we should read it from args[i]) for <strong>level 3</strong>.</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 355px; left: 605px; top: 643px;" data-block-id="8d956444a5c8f3df1dba2925247c808c"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p>Most Important Challenges</p>
+</div></div></section><section data-id="16d1787421a791522588c6798be1d2a4">
+
+
+<div class="sl-block" data-block-type="text" data-block-id="481b173e8b865cdd50719922d7e0a9e0" style="height: auto; min-width: 30px; min-height: 30px; width: 850px; left: 41px; top: 17px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10;" dir="ui">
+<ul>
+	<li>Below is the common code snippet present in all the user tester programs.</li>
+	<li>The rest of the code is different, each testing different functionalities of our syscall waitpid, depending on the levels.</li>
+	<li>Output for corresponding tests are also shown with them.</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 559px; height: 445px; left: 66px; top: 210px;" data-block-id="780e48301d56bfdc2dda35fe48a9beec"><div class="sl-block-content" style="z-index: 11;"><img style="left: 0px; top: -113px; width: 559px; height: 558px;" data-natural-width="559" data-natural-height="558" data-lazy-loaded="" data-crop-x="0" data-crop-y="0.202083" data-crop-width="1" data-crop-height="0.797917" data-src="os_proj_7/6ada1808c5607267ee58101fe5584264.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 355px; left: 605px; top: 643px;" data-block-id="d059fb9d0b2022e16f052e5d67bdddba"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p>Demonstration 1/3</p>
+</div></div></section><section data-id="3c9b828857b0dd048bad6313209a27ef"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 612px; height: 690px; left: 0px; top: 10px;" data-block-id="3ecddaa3d72f5d66a5d8576d485d35f9"><div class="sl-block-content" style="z-index: 10;"><img style="left: 0px; top: 0px; width: 691px; height: 690px;" data-natural-width="643" data-natural-height="642" data-crop-x="0" data-crop-y="0" data-crop-width="0.885764" data-crop-height="1" data-lazy-loaded="" data-src="os_proj_7/278f663bf9eeda8dcf8e6a25240b45f9.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 262px; height: 265px; left: 640px; top: 223px;" data-block-id="10b67ee7d9fba24e784aebc878415d14"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="262" data-natural-height="265" style="" data-lazy-loaded="" data-src="os_proj_7/dff7729d942c47116809de05039b4654.png"></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="ad47876f586222fb3f0e83186218923f" style="height: auto; min-width: 30px; min-height: 30px; width: 290px; left: 626px; top: 122px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p><strong>Test 1 and it's output</strong></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 355px; left: 605px; top: 643px;" data-block-id="e7861c7fd9981300c80434248b256d69"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p>Demonstration 2/3</p>
+</div></div></section><section data-id="77f5866e902222271689250e8d7edfef"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 528px; height: 350px; left: 0px; top: 0px;" data-block-id="06b6810a2e78969496acfe8e2e09f6dc"><div class="sl-block-content" style="z-index: 10;"><img data-natural-width="621" data-natural-height="467" style="left: 0px; top: 0px; width: 528px; height: 397px;" data-lazy-loaded="" data-crop-x="0" data-crop-y="0" data-crop-width="1" data-crop-height="0.881679" data-src="os_proj_7/b1aa212c0c98437d59f734c0b8620aac.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 541px; height: 311px; left: 0px; top: 376px;" data-block-id="8699babbd36b4a9e5797b54c6853fc62"><div class="sl-block-content" style="z-index: 11;"><img style="left: 0px; top: 0px; width: 541px; height: 362px;" data-natural-width="634" data-natural-height="424" data-lazy-loaded="" data-crop-x="0" data-crop-y="0" data-crop-width="1" data-crop-height="0.858934" data-src="os_proj_7/42c88dbdc36366493bf1beba40ca4618.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 327px; height: 219px; left: 547px; top: 86px;" data-block-id="009d6e1f7983cf701afe785683bf5918"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="327" data-natural-height="219" style="" data-lazy-loaded="" data-src="os_proj_7/f885857a8aa26566551c71b7338df150.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 270px; height: 200px; left: 576px; top: 399px;" data-block-id="43a96ce465a0ce55718ef50c80c0442f"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="270" data-natural-height="200" style="" data-lazy-loaded="" data-src="os_proj_7/bb9148fc8cdcc87c27fc345782d992f4.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 290px; left: 510px; top: 43px;" data-block-id="13143964f89dc4b50d9f869bf1896311"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p><strong>Test 2 and output</strong></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 290px; left: 556px; top: 350px;" data-block-id="551c1059cc98ed795cb901d797a648c5"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
+<p><strong>Test 3 and output</strong></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 355px; left: 605px; top: 643px;" data-block-id="52be31a5965d55f476e753c3b7583c80"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
+<p>Demonstration 3/3</p>
+</div></div></section><section data-id="e7c2c95eacd4b28e15ed2164ed324fe2">
+
+<div class="sl-block" data-block-type="text" style="width: 368px; left: 560px; top: 454px; height: auto;" data-block-id="f757f245525cf8d1c64a550bbe7705b4"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<p style="text-align:left"><span style="color:#696969"><span style="font-size:0.9em">CS 3500</span></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 368px; left: 560px; top: 410px; height: auto;" data-block-id="1a6e6b17c7970f3a156ab803c1185a22"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;" dir="ui">
+<p style="text-align:left"><span style="font-size:0.9em">Project 5</span></p>
+</div></div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; width: 610px; left: 80px; top: 52px;" data-block-id="8566ae8ab61e6115f7030d3760d1f409"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left; line-height: 1.573;" data-has-line-height="">
+<p>“The strongest of all warriors are these two — Time and Patience.”<br>
+<span style="font-size:0.9em">― <span class="authorOrTitle"> Leo Tolstoy, </span> </span><span><span style="font-size:0.9em"> <a href="https://www.goodreads.com/work/quotes/4912783" target="_blank">War and Peace</a></span> </span></p>
+</div></div>
+
+
+<div class="sl-block" data-block-type="image" style="width: 426px; height: 266px; left: 80px; top: 230px; min-width: 4px; min-height: 4px;" data-block-id="1676c89b5202986bab8e546f7441dd25"><div class="sl-block-content" style="z-index: 15;"><img style="" data-natural-width="800" data-natural-height="499" data-lazy-loaded="" data-src="os_proj_7/3ee722df4dbdbf88fdfd6a830504937a.jpg"></div></div></section></section>
+			</div>
+		</div>
+
+		<script>
+			var SLConfig = {"deck": {"id":1635473,"slug":"os_proj_7","title":"OS_Project_7","description":"Operating Systems - Project 7","width":960,"height":700,"visibility":"self","published_at":"2019-07-21T17:10:12.030Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/35c2e0aadb5f26daaf9f2d31cfa1676f/thumb.jpg?1573814434","view_count":1,"user":{"id":972808,"username":"pratyushkumarpanda","name":"Pratyush Kumar Panda","description":null,"thumbnail_url":"https://lh5.googleusercontent.com/-hmr0lkkpPsM/AAAAAAAAAAI/AAAAAAAAAWw/CWUJGNqJ2HE/photo.jpg","paid":true,"pro":true,"lite":false,"team_id":null,"settings":{"id":2347909,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}},"background_transition":"fade","transition":"fade","theme_id":null,"theme_font":"overpass2","theme_color":"white-blue","auto_slide_interval":0,"comments_enabled":false,"forking_enabled":false,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":true,"slide_count":9,"rtl":false,"version":2,"collaborative":true,"deck_user_editor_limit":3,"data_updated_at":1573821051342,"font_typekit":null,"font_google":null,"time_limit":null,"upsizing_enabled":true,"notes":{}}};
+
+
+			// Use local fonts
+			SLConfig.fonts_url = 'lib/fonts/';
+		</script>
+
+		<script src="lib/reveal.min.js"></script>
+		<script src="lib/offline.js"></script>
+
+		<!-- Initialize the presentation -->
+		<script>
+			Reveal.initialize({
+				width: 960,
+				height: 700,
+				margin: 0.05,
+				
+
+				hash: true,
+				controls: true,
+				progress: true,
+				mouseWheel: false,
+				showNotes: false,
+				slideNumber: true,
+
+				autoSlide: 0,
+				autoSlideStoppable: true,
+
+				center: false,
+				shuffle: false,
+				loop: false,
+				rtl: false,
+
+				transition: "fade",
+				backgroundTransition: "fade",
+
+				highlight: {
+					escapeHTML: false
+				},
+
+				dependencies: [
+					{ src: 'lib/reveal-plugins/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/highlight/highlight.js' },
+					{ src: 'lib/reveal-plugins/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'lib/reveal-plugins/zoom/zoom.js', async: true }
+				]
+			});
+		</script>
+
+		
+
+	</body>
+</html>

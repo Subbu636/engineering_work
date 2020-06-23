@@ -1,0 +1,2 @@
+sym a sym b
+1 2 3
