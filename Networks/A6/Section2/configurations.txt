@@ -1,0 +1,142 @@
+Configurations
+--------------------------
+
+PC1:
+
+ip 10.5.1.1/24 10.5.1.101
+
+PC2:
+
+ip 10.5.3.2/24 10.5.3.102
+
+PC3:
+
+ip 10.5.4.3/24 10.5.4.103
+
+PC4:
+
+ip 192.5.2.4/24 192.5.2.104
+
+---------------------------
+
+R1:
+
+config
+t
+interface ethernet 1/0
+ip address 10.5.1.101 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 172.5.2.101 255.255.0.0
+no shutdown
+exit
+exit
+
+config 
+t
+router ospf 1
+network 10.5.1.0 0.0.0.255 area 0
+network 172.5.2.0 0.0.255.255 area 0
+exit
+exit
+
+R2:
+
+config
+t
+interface ethernet 1/0
+ip address 10.5.3.102 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 172.5.2.102 255.255.0.0
+no shutdown
+exit
+exit
+
+config 
+t
+router ospf 1
+network 10.5.3.0 0.0.0.255 area 0
+network 172.5.2.0 0.0.255.255 area 0
+exit
+exit
+
+R3:
+
+config
+t
+interface ethernet 1/0
+ip address 10.5.4.103 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 172.5.2.103 255.255.0.0
+no shutdown
+exit
+exit
+
+config 
+t
+router ospf 1
+network 10.5.4.0 0.0.0.255 area 0
+network 172.5.2.0 0.0.255.255 area 0
+exit
+exit
+
+Add R3:
+
+config
+t
+interface ethernet 1/2
+ip address 192.5.1.103 255.255.0.0
+no shutdown
+exit
+exit
+
+config 
+t
+router ospf 1
+network 192.5.1.0 0.0.255.255 area 100
+exit
+exit
+
+R4:
+
+config
+t
+interface ethernet 1/0
+ip address 192.5.2.104 255.255.0.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 192.5.1.104 255.255.0.0
+no shutdown
+exit
+exit
+
+config 
+t
+router ospf 1
+network 192.5.2.0 0.0.255.255 area 100
+network 192.5.1.0 0.0.255.255 area 100
+exit
+exit
+

@@ -1,0 +1,231 @@
+Configurations
+--------------------------
+
+
+PC1 : 
+
+ip 192.5.1.1/24 192.5.1.101
+
+PC2 : 
+
+ip 192.5.3.2/24 192.5.3.102
+
+PC3 :
+
+ip 192.5.5.3/24 192.5.5.103
+
+PC4 :
+
+ip 192.5.7.4/24 192.5.7.104
+
+PC5:
+
+ip 192.5.10.5/24 192.5.10.105
+
+
+-------------------------------------
+
+R1 Add:
+
+config
+t
+router rip
+version 2
+network 192.5.8.101
+exit
+exit
+
+R4 Add:
+
+config
+t
+router rip
+version 2
+network 192.5.9.104
+exit
+exit
+
+R1:
+
+config
+t
+interface ethernet 1/0
+ip address 192.5.1.101 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 192.5.2.101 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/2
+ip address 192.5.8.101 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+router rip
+version 2
+network 192.5.1.101
+network 192.5.2.101
+network 192.5.8.101
+exit
+exit
+
+R2:
+
+config
+t
+interface ethernet 1/0
+ip address 192.5.3.102 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 192.5.2.102 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/2
+ip address 192.5.4.102 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+router rip
+version 2
+network 192.5.2.102
+network 192.5.3.102
+network 192.5.4.102
+exit
+exit
+
+R3:
+
+config
+t
+interface ethernet 1/0
+ip address 192.5.5.103 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 192.5.4.103 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/2
+ip address 192.5.6.103 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+router rip
+version 2
+network 192.5.4.103
+network 192.5.5.103
+network 192.5.6.103
+exit
+exit
+
+R4:
+
+config
+t
+interface ethernet 1/0
+ip address 192.5.7.104 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 192.5.6.104 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/2
+ip address 192.5.9.104 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+router rip
+version 2
+network 192.5.7.104
+network 192.5.6.104
+network 192.5.9.104
+exit
+exit
+
+
+R5:
+
+config
+t
+interface ethernet 1/0
+ip address 192.5.10.105 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/1
+ip address 192.5.8.105 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+interface ethernet 1/2
+ip address 192.5.9.105 255.255.255.0
+no shutdown
+exit
+exit
+
+config
+t
+router rip
+version 2
+network 192.5.8.105
+network 192.5.9.105
+network 192.5.10.105
+exit
+exit
+
+
+
+
