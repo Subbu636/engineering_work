@@ -8,4 +8,4 @@ Notes:
 6. traceroute(["google.com"],maxttl=20)
 7. sr(IP(dst="google.com")/TCP(dport=[80])) -> can be send, sr to just send, recieve only one respectively.
 8. sendp(Ether(src="aa:bb:cc:dd:ee:ff")/IP(dst="google.com",src="192")/TCP(dport=[80]))
-9. public IP WIFI -> 49.37.142.248, Airtel 4g mobile -> 27.59.205.232 both are Ipv4 no Ipv6 is detected
+9. public IP WIFI -> 49.37.142.248, Airtel 4g mobile -> 27.59.205.232 both are Ipv4 no Ipv6 is detected	
