@@ -102,7 +102,7 @@ Add R3:
 config
 t
 interface ethernet 1/2
-ip address 192.5.1.103 255.255.0.0
+ip address 174.5.1.103 255.255.0.0
 no shutdown
 exit
 exit
@@ -110,7 +110,7 @@ exit
 config 
 t
 router ospf 1
-network 192.5.1.0 0.0.255.255 area 100
+network 174.5.1.0 0.0.255.255 area 100
 exit
 exit
 
@@ -127,7 +127,7 @@ exit
 config
 t
 interface ethernet 1/1
-ip address 192.5.1.104 255.255.0.0
+ip address 174.5.1.104 255.255.0.0
 no shutdown
 exit
 exit
@@ -136,7 +136,7 @@ config
 t
 router ospf 1
 network 192.5.2.0 0.0.255.255 area 100
-network 192.5.1.0 0.0.255.255 area 100
+network 174.5.1.0 0.0.255.255 area 100
 exit
 exit
 

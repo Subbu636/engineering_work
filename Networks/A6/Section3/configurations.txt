@@ -53,7 +53,8 @@ router rip
 version 2
 network 170.5.1.101
 no auto-summary
-redistribute ospf 1
+redistribute ospf 1 match external metric 1
+redistribute ospf 1 match internal metric 1
 exit
 exit
 
