@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
@@ -19,20 +20,28 @@ int main(){
 	// same func for vector too
 
 	// Hashmap
-	map<string, int> dict; // or unordered_map <string, int> dict (more like hashmap O(1)) former har O(logn)
-	dict["HOLA"] = 0;
-	dict["xy"] = 1;
-	cout<<dict["xy"]<<endl;
-	if(dict["xyz"]==0){
-		cout<<"its null"<<endl; // true for int its 0 and string its empty string 
-		// be carefull
-	}
-	cout<<dict["xyz"]<<endl;
-	dict.begin();
-	dict.end();
-	dict.size();
-	dict.empty();
-	dict.insert(pair<string,int>("xyz",100));
-	dict.clear();
-	return 0;
+	// map<string, int> dict; // or unordered_map <string, int> dict (more like hashmap O(1)) former har O(logn)
+	// dict["HOLA"] = 0;
+	// dict["xy"] = 1;
+	// cout<<dict["xy"]<<endl;
+	// if(dict["xyz"]==0){
+	// 	cout<<"its null"<<endl; // true for int its 0 and string its empty string 
+	// 	// be carefull
+	// }
+	// cout<<dict["xyz"]<<endl;
+	// dict.begin();
+	// dict.end();
+	// dict.size();
+	// dict.empty();
+	// dict.insert(pair<string,int>("xyz",100));
+	// dict.clear();
+	// return 0;
+	// cout<<log(M_E)<<endl;
+	// bool look = (M_PI == 2*acos(0.0));
+	// cout<<look<<endl;
+
+	priority_queue <int, vector<int>, greater<int> > min_heap; // push pop and top 
+	priority_queue <int> max_heap; // size and empty
+
+
 }
