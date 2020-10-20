@@ -1,0 +1,8 @@
+Instructions for setting-up MySql server and running SQL queries.
+1. Download the "academic_insti.sql" file from moodle.
+2. Download & Install "MySql community server" if you have not installed yet.
+3. Open MySql workbench.
+4. Under the "file" tab, click on the "Open SQL script" tab and open the "academic_insti.sql" file
+5. Click on the execute symbol (yellow flash like symbol) in MySql workbench
+6. Go to the left side navigation bar, click on the synchronize button. Make sure after synchronizing "academic_insti" schema appears under SCHEMAS.
+7. Create a new SQL tab for executing queries and start practicing.
