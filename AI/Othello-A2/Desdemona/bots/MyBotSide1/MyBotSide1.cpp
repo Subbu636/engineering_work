@@ -42,28 +42,14 @@ MyBot::MyBot( Turn turn )
 
 Move MyBot::play( const OthelloBoard& board )
 {
-    // cout<<(this->turn == 2)<<endl; // true
-    // custom_board = board;
-    // cout<<"custom"<<endl;
-    // custom_board.print();
-    // cout<<"main"<<endl;
-    // board.print();
-    // int randNo = rand() % moves.size();
-    // custom_board.makeMove(this->turn, *it);
-    // cout<<"main"<<endl;
-    // board.print();
-    // cout<<"custom"<<endl;
-    // custom_board.print();
-    
-    // custom_board.print();
-    // for(int i=0; i < randNo; it++, i++);
     list<Move> moves = board.getValidMoves( turn );
     list<Move>::iterator it = moves.begin();
-    int best_score = alfaBeta(board, *it, INT_MIN, INT_MAX, 1, 8);
+    int max_depth = 3;
+    int best_score = alfaBeta(board, *it, INT_MIN, INT_MAX, 1, max_depth);
     Move best_move = *it;
     ++it;
     for(;it != moves.end();++it){
-        int score = alfaBeta(board, *it, INT_MIN, INT_MAX, 1, 8);
+        int score = alfaBeta(board, *it, best_score, INT_MAX, 1, max_depth);
         if (score > best_score){
             best_score = score;
             best_move = *it;
@@ -73,9 +59,9 @@ Move MyBot::play( const OthelloBoard& board )
 }
 
 int MyBot::diffHuristic(OthelloBoard board){
-    int ans = board.getBlackCount();
+    int ans = board.getBlackCount()-board.getRedCount();
     if (turn == RED){
-        ans  = board.getRedCount();
+        ans  = -1*ans;
     }
     return ans;
 }
