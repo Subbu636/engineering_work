@@ -48,7 +48,7 @@ MyBot::MyBot( Turn turn )
     opp_turn = other(turn);
 }
 
-Move MyBot::play( const OthelloBoard& board )
+Move MyBot::play(const OthelloBoard& board)
 {
     list<Move> moves = board.getValidMoves( turn );
     double best_score = (double)INT_MIN;
@@ -90,27 +90,23 @@ double MyBot::diffHuristic(OthelloBoard board){
     else if(board.get(7,0) == opp_turn) op_c++;
     if(board.get(7,7) == turn) pl_c++;
     else if(board.get(7,7) == opp_turn) op_c++;
-    double pl_moves = (double)board.getValidMoves(turn).size();
-    double opp_moves = (double)board.getValidMoves(opp_turn).size();
-    double s  = 0.0, p = 0.0, m = 0.0,c = 0.0;
+    double s  = 0.0, p = 0.0,c = 0.0;
     if (deno != 0.0){
         s = (double)(stability/deno)*100.0;
     }
     if(pl+opp != 0.0){
         p = (double)(pl-opp)/(pl+opp)*100.0;
     }
-    if(pl_moves + opp_moves != 0.0){
-        m = (double)(pl_moves-opp_moves)/(pl_moves+opp_moves)*100.0;
-    }
     if(pl_c+op_c != 0.0){
         c = (double)(pl_c-op_c)/(pl_c+op_c)*100;
     }
-    double result = (0.40*s)+(0.25*p)+(0.05*m)+(0.30*c);
-    return result;
+    return (0.40*s)+(0.30*p)+(0.30*c);
 }
 
 double MyBot::alfaBeta(OthelloBoard board, Move move,double alfa ,double beta, int depth, int max_depth){
     if(depth == max_depth){
+        if(max_depth%2 == 0) board.makeMove(opp_turn, move);
+        else board.makeMove(turn, move);
         return diffHuristic(board);
     }
     if(depth%2 == 0){
