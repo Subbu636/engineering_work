@@ -181,7 +181,7 @@ while(True):
 	lock.acquire()
 	if(len(timers) > 0):
 		if(succ_send > 10):
-			if((time.time() - timers[0]) > 2*RTT_avg):
+			if((time.time() - timers[0]) > 100*RTT_avg):
 				timers.clear()
 				un_acks = 0
 				retrans += 1
