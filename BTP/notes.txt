@@ -1,0 +1,29 @@
+-> We have n states and an which follow a backgrond markov chain with P(unknown) as transition matrix
+-> Agent moves on these states produces a binary output every unit time
+-> We have probability of agent producing 1 at a given state : b(output=1/state=s)
+-> we need to estimate the matrix P by the binary output at every time instant
+-> Expecting a gradient learning type solution but anything with good results will be fine
+
+M1:
+-> states : E*C 
+-> drawbacks: emission probabilities have to be altered for each channel selection
+        to enforce the selected channel into equation
+
+M2: 
+-> use same encoder for n consecutive time steps and estimate using transition probs using these chains on n length
+-> initialize new p[t+1](trans estimate) with previous p[t] and startprob with steady state estimate of p[t]
+
+M3:
+-> instead of using same encoder use same lamda and construct emission probs with it
+-> do a progressive update - otherwise lot of varience and estimate just keep oscillating
+-> for more no. of updates on p its estimation error is increasing - this might be due to full on exploitation
+        - this can be avoided by choosing some epslon-greedy approach
+addons: estimation error is going in wrong direction and oscillating - this is settled by using adaptive learning_rate 
+        and epsilon deacy with a minimum
+
+
+Doubts:
+-> whether to consider error for rolling rate or not?
+
+
+-> P more i,i - more en, ch
