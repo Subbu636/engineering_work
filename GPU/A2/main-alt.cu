@@ -33,17 +33,43 @@ void print_matrix(int m,int n, int *mat){
 
 // complete the following kernel...
 __global__ void dkernel_Adds(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate){
-  
+	int n = gridDim.x;
+	int id = blockIdx.x;
+	// printf("%d,%d\n",id,n);
+	if(id >= n) return;
+	int var = 0;
+	for(int i = gpuOA[id];i < gpuOA[id+1];++i){
+		var+=gpucurrentupdate[gpuCA[i]];
+	}
+	__syncthreads();
+	gpulocals[id] += var;
 }
 
 // complete the following kernel...
 __global__ void dkernel_Mins(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate){
+	int n = gridDim.x;
+	int id = blockIdx.x;
+	if(id >= n) return;
+	int var = gpulocals[id];
+	for(int i = gpuOA[id];i < gpuOA[id+1];++i){
+		var = min(var,gpucurrentupdate[gpuCA[i]]);
+	}
+	__syncthreads();
+	gpulocals[id] = var;
 
 }
 
 // complete the following kernel...
 __global__ void dkernel_Maxs(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate){
-
+	int n = gridDim.x;
+	int id = blockIdx.x;
+	if(id >= n) return;
+	int var = gpulocals[id];
+	for(int i = gpuOA[id];i < gpuOA[id+1];++i){
+		var = max(var,gpucurrentupdate[gpuCA[i]]);
+	}
+	__syncthreads();
+	gpulocals[id] = var;
 }
 
 int main(int argc,char **argv){
@@ -85,12 +111,12 @@ int main(int argc,char **argv){
 		if( j%2 == 0) 
 		{       		
 			if(number >= 1 && number <= 10000)
-			COO[i].x = number;
+			COO[i].y = number;
 		}		
 		else
 		{
 			if(number >= 1 && number <= 10000)
-			COO[i].y = number;
+			COO[i].x = number;
 		}	
 
 		}
@@ -152,10 +178,11 @@ int main(int argc,char **argv){
 	cudaMemcpy(gpuCA, CA, sizeof(int) * m, cudaMemcpyHostToDevice);
 	cudaMemcpy(gpulocals, initlocalvals, sizeof(int) * n, cudaMemcpyHostToDevice);
 
-	printf("%d",n);
-	print_matrix(n+1, OA);
-	print_matrix(n+1,CA);
-
+	printf("%d %d\n",n,m);
+	print_matrix(1,n+1, OA);
+	print_matrix(1,m,CA);
+	print_matrix(1,n,initlocalvals);
+	printf("\n");
 
 	int *currentupdate = (int *)malloc(n*sizeof(int));	// array to store the updates that are pushed by each vertex to there neighbors
 	int *gpucurrentupdate;		// same as above but on GPU
@@ -164,9 +191,10 @@ int main(int argc,char **argv){
 
 
   // open the output.txt to write the query results
-      char *fname = argv[2]; 
+      // char *fname = argv[2]; 
       FILE *fptr;
-      fptr = fopen(fname,"w");
+      // fptr = fopen(fname,"w");
+      fptr = stdout;
 
 	for(int i=0;i<numofquery;i++){
 
@@ -215,9 +243,9 @@ int main(int argc,char **argv){
 			//print local values of each vertices.
       cudaMemcpy(results, gpulocals, n * sizeof(int), cudaMemcpyDeviceToHost);  // get each locals from GPU
        for(int j=0;j<n;j++){
-           fprintf(fptr ,"%d ", results[j] ); 
+           fprintf(fptr ,"%d ", results[j] );
        }
-       fprintf(fptr,"\n"); 
+       fprintf(fptr,"\n");
     }
 		
 	}

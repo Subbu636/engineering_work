@@ -23,19 +23,52 @@ bool compareTwoEdgePairs(edgepairs a, edgepairs b)
 }
 
 // complete the following kernel...
-__global__ void dkernel_Adds(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate){
-  
+// interchanged x,y in COO to easy up kernel work!!!
+__global__ void dkernel_Adds(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate,int n){
+	int td = threadIdx.z*blockDim.x*blockDim.y + threadIdx.y*blockDim.x + threadIdx.x;
+    int dim = blockDim.x*blockDim.y*blockDim.z;
+    int bk = blockIdx.z*gridDim.x*gridDim.y + blockIdx.y*gridDim.x + blockIdx.x;
+    int id = bk*dim + td;
+	if(id >= n) return;
+	int var = 0;
+	for(int i = gpuOA[id];i < gpuOA[id+1];++i){
+		var+=gpucurrentupdate[gpuCA[i]];
+	}
+	__syncthreads();
+	gpulocals[id] += var; // coalesced write to locals
 }
 
 // complete the following kernel...
-__global__ void dkernel_Mins(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate){
+__global__ void dkernel_Mins(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate,int n){
+	int td = threadIdx.z*blockDim.x*blockDim.y + threadIdx.y*blockDim.x + threadIdx.x;
+    int dim = blockDim.x*blockDim.y*blockDim.z;
+    int bk = blockIdx.z*gridDim.x*gridDim.y + blockIdx.y*gridDim.x + blockIdx.x;
+    int id = bk*dim + td;
+	if(id >= n) return;
+	int var = gpulocals[id];
+	for(int i = gpuOA[id];i < gpuOA[id+1];++i){
+		var = min(var,gpucurrentupdate[gpuCA[i]]);
+	}
+	__syncthreads();
+	gpulocals[id] = var;
 
 }
 
 // complete the following kernel...
-__global__ void dkernel_Maxs(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate){
-
+__global__ void dkernel_Maxs(int *gpuOA, int *gpuCA, int *gpulocals,int *gpucurrentupdate,int n){
+	int td = threadIdx.z*blockDim.x*blockDim.y + threadIdx.y*blockDim.x + threadIdx.x;
+    int dim = blockDim.x*blockDim.y*blockDim.z;
+    int bk = blockIdx.z*gridDim.x*gridDim.y + blockIdx.y*gridDim.x + blockIdx.x;
+    int id = bk*dim + td;
+	if(id >= n) return;
+	int var = gpulocals[id];
+	for(int i = gpuOA[id];i < gpuOA[id+1];++i){
+		var = max(var,gpucurrentupdate[gpuCA[i]]);
+	}
+	__syncthreads();
+	gpulocals[id] = var;
 }
+
 
 int main(int argc,char **argv){
 
@@ -76,12 +109,12 @@ int main(int argc,char **argv){
 		if( j%2 == 0) 
 		{       		
 			if(number >= 1 && number <= 10000)
-			COO[i].x = number;
+			COO[i].y = number;
 		}		
 		else
 		{
 			if(number >= 1 && number <= 10000)
-			COO[i].y = number;
+			COO[i].x = number;
 		}	
 
 		}
@@ -175,19 +208,19 @@ int main(int argc,char **argv){
 		//kernel launches
     if(op == 0)	{
 		gettimeofday(&t1, 0);	
-		dkernel_Adds<<<n,1>>>(gpuOA,gpuCA,gpulocals,gpucurrentupdate);
+		dkernel_Adds<<<(n/1024)+1,1024>>>(gpuOA,gpuCA,gpulocals,gpucurrentupdate,n);
 		cudaDeviceSynchronize();
 		gettimeofday(&t2, 0);
 		}
     if(op == 1)	{
 		gettimeofday(&t1, 0);
-		dkernel_Mins<<<n,1>>>(gpuOA,gpuCA,gpulocals,gpucurrentupdate);
+		dkernel_Mins<<<(n/1024)+1,1024>>>(gpuOA,gpuCA,gpulocals,gpucurrentupdate,n);
 		cudaDeviceSynchronize();
 		gettimeofday(&t2, 0);
 		}
     if(op == 2)	{	
 		gettimeofday(&t1, 0);
-		dkernel_Maxs<<<n,1>>>(gpuOA,gpuCA,gpulocals,gpucurrentupdate);
+		dkernel_Maxs<<<(n/1024)+1,1024>>>(gpuOA,gpuCA,gpulocals,gpucurrentupdate,n);
 		cudaDeviceSynchronize();
 		gettimeofday(&t2, 0);
 		}

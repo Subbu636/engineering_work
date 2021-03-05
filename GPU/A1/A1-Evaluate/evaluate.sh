@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #Do NOT Terminate terminate with a "/"
-SUBMIT=/scratch/scratch6/CS19M010/GPU_TA/A1-Evaluate/A1-Submit
-INPUT=/scratch/scratch6/CS19M010/GPU_TA/A1-Evaluate/A1-tc
-OURSRC=/scratch/scratch6/CS19M010/GPU_TA/A1-Evaluate/src
+SUBMIT=/home/subbu/engineering_work/GPU/A1/A1-Evaluate/A1-Submit
+INPUT=/home/subbu/engineering_work/GPU/A1/A1-Evaluate/A1-tc
+OURSRC=/home/subbu/engineering_work/GPU/A1/A1-Evaluate/src
 
 
 MARKSFILE=$OURSRC/A1-Marks.txt
