@@ -1,0 +1,7 @@
+Steps for running the evaluation script
+step 1 : Extract the zip file
+step 2 : Set the paths properly in evaluate.sh
+step 3 : Create a folder "roll_no" in CS6023_Jan_2021/A3/sub and put the roll_no.cu file(Ex: A3/CS16B001/CS16b001.cu)
+step 4 : Run evaluate.sh in CS6023_Jan_2021/A3/src
+
+Marks can be checked in A3-Marks.txt in Marks folder. As there are only 3 public test cases 1.5 is the maximum score 0.5 for each test case.
