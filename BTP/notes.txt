@@ -27,3 +27,7 @@ Doubts:
 
 
 -> P more i,i - more en, ch
+
+
+Papers:
+Schostic linear bandits

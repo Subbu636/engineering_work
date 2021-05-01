@@ -17,23 +17,24 @@ __host__ __device__ bool compareTimes(pairs i1, pairs i2)
     return i1.first < i2.first;
 }
 
-__global__ void toll_booths(pairs *times,int n,int m,int x){
+__global__ void toll_travel(pairs *times,int n,int m,int x,int i,float dis,float *speed){
     int id = (blockIdx.x*blockDim.x)+threadIdx.x;
     if (id < m){
         float last = times[id].first;
         for(int q = id;q < n;q+=m){
             times[q].first = max(last,times[q].first)+(float)x;
             last = times[q].first;
+            times[q].first = times[q].first+(dis/speed[((i+1)*n)+times[q].second]);
         }
     }
 }
 
-__global__ void travel(pairs *times,int n,int i,float dis,float *speed){
-    int id = (blockIdx.x*blockDim.x)+threadIdx.x;
-    if (id < n){
-        times[id].first = times[id].first+(dis/speed[((i+1)*n)+times[id].second]);
-    }
-}
+// __global__ void travel(pairs *times,int n,int i,float dis,float *speed){
+//     int id = (blockIdx.x*blockDim.x)+threadIdx.x;
+//     if (id < n){
+//         times[id].first = times[id].first+(dis/speed[((i+1)*n)+times[id].second]);
+//     }
+// }
 
 //Complete the following function
 void operations_gpu ( int n, int k, int m, int x, float dis, float *speed, int **results )  {
@@ -49,30 +50,21 @@ void operations_gpu ( int n, int k, int m, int x, float dis, float *speed, int *
     }
     cudaMemcpy(gpu_times,times,n*sizeof(pairs),cudaMemcpyHostToDevice);
     for(int i = 0;i < k;++i){
-        pairs *GPUpointer_ssbo = thrust::raw_pointer_cast(gpu_times);
-        thrust::device_ptr<pairs> dev_ptr = thrust::device_pointer_cast(GPUpointer_ssbo);
-        thrust::sort(dev_ptr,dev_ptr+n,compareTimes);
+        thrust::sort(times,times+n,compareTimes);
+        // cudaDeviceSynchronize();
+        results[0][i] = times[0].second+1;
+        results[1][i] = times[n-1].second+1;
+        cudaMemcpy(gpu_times,times,n*sizeof(pairs),cudaMemcpyHostToDevice);
+        // toll_booths<<<m,1>>>(gpu_times,n,m,x);
+        // cudaDeviceSynchronize();
+        toll_travel<<<n,1>>>(gpu_times,n,m,x,i,dis,gpu_speed);
         cudaDeviceSynchronize();
-        // results[0][i] = times[0].second+1;
-        // results[1][i] = times[n-1].second+1;
-        // cudaMemcpy(gpu_times,times,n*sizeof(pairs),cudaMemcpyHostToDevice);
-        cudaMemcpy(&results[0][i],&gpu_times[0].second,sizeof(int),cudaMemcpyDeviceToHost);
-        cudaMemcpy(&results[1][i],&gpu_times[n-1].second,sizeof(int),cudaMemcpyDeviceToHost);
-        results[0][i]++;results[1][i]++;
-        toll_booths<<<m,1>>>(gpu_times,n,m,x);
-        cudaDeviceSynchronize();
-        travel<<<n,1>>>(gpu_times,n,i,dis,gpu_speed);
-        cudaDeviceSynchronize();
-        // cudaMemcpy(times,gpu_times,n*sizeof(pairs),cudaMemcpyDeviceToHost);
+        cudaMemcpy(times,gpu_times,n*sizeof(pairs),cudaMemcpyDeviceToHost);
     }
-    GPUpointer_ssbo = thrust::raw_pointer_cast(gpu_times);
-    thrust::device_ptr<pairs> dev_ptr = thrust::device_pointer_cast(GPUpointer_ssbo);
-    thrust::sort(dev_ptr,dev_ptr+n,compareTimes);
-    cudaMemcpy(times,gpu_times,n*sizeof(pairs),cudaMemcpyDeviceToHost);
+    thrust::sort(times,times+n,compareTimes);
     for(int j = 0;j < n;++j){
         results[2][times[j].second] = (int)times[j].first;
     }
-    // sort(times,times+n,compareTimes);
     results[0][k] = times[0].second+1;
     results[1][k] = times[n-1].second+1;
     return;

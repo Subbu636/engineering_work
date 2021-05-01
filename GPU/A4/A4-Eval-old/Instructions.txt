@@ -1,0 +1,14 @@
+Steps for running the evaluation script:
+
+1 : Extract the zip file
+2 : Rename the folder and code file in the "Submissions" folder to your roll number (in capital letters, eg., CS19M031)
+3 : Run evaluate.sh
+
+-> The number of testcases that your code worked successfully on would be displayed.
+
+-> You can check the log file in "Submissions" folder for results for particular testcases.
+
+-> "output.txt" in "Submissions" folder will contain the output of the last run testcase.
+
+
+

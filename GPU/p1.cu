@@ -14,11 +14,12 @@ __global__ void add(int *arr,int n){
 }
 
 int main(){
-    const int n = 8000;
+    const int n = 10;
     int arr[n],i;
     int *garr;
     cudaMalloc(&garr,n*sizeof(int));
     init<<<1,n>>>(garr,n);
+    cudaDeviceSynchronize();
     add<<<1,n>>>(garr,n);
     cudaDeviceSynchronize();
     cudaMemcpy(arr,garr,n*sizeof(int),cudaMemcpyDeviceToHost);
