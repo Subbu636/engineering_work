@@ -3,27 +3,30 @@
 #include <bits/stdc++.h>
 #include <cuda_runtime.h>
 #include <sys/time.h> 
-#include "cublas.h"
+#include "cublas_v2.h"
 using namespace std;
 
-struct Point{
-    double x, y;
-};
+typedef struct Point{
+    float x, y;
+}Point;
 
 void read_file(char *filename, vector <Point> &points);
 
-vector <Point> kmeans_cpu(vector <Point> points, int iter);
+float kmeans_cpu(Point* points, Point* means,int* labels,float* dist, int iter, int n, int k);
+float kmeans_gpu(Point* points, Point* cpupoints, Point* means,int* labels,float* dist,float* cpudist, int iter, int n, int k);
+float kmeans_cpu_ineq(Point* points,Point* means, int* labels,float* icd,int* rid,int iter,int n,int k);
+float kmeans_gpu_ineq(Point* points, Point* means, int* labels, float* icd, int* rid, int iter, int n, int k);
 
 vector <Point> kmeans_gpu(vector <Point> points, int iter);
 
 
 // Gmix Functions
 double *read_file_array(char *fname, int d,int *l);
-double *create(int m, int n);
+__host__ __device__ double *create(int m, int n);
 double *init_prob(int k, int l);
-void gmix_cpu(double *p,double *r, int k, int iter, int l, int d);
-void gmix_gpu(double *p,double *r, int k, int iter, int l, int d);
-void print_prob(char *fname, double *prob, int k, int l);
+void gmix_cpu(double *p,double *r, int k, int iter, int l, int d, double *ctime);
+void gmix_gpu(double *p,double *r, int k, int iter, int l, int d, double *gtime);
+void fprint_mat(char *fname, double *prob, int l, int k);
 
 
 

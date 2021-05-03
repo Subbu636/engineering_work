@@ -14,24 +14,29 @@ __global__ void add(int *arr,int n){
     }
 }
 
+__global__ void print(){
+    printf("GPU\n");
+}
+
 int main(){
-    cudaError_t cudaStat;
-    const int n = 10;
-    int arr[n],i;
-    int *garr;
-    cudaStat = cudaMalloc(&garr,n*sizeof(int));
-    if (cudaStat != cudaSuccess) {
-        printf ("device memory allocation failed");
-        return EXIT_FAILURE;
-    }
-    init<<<1,n>>>(garr,n);
+    // cudaError_t cudaStat;
+    // const int n = 10;
+    // int arr[n],i;
+    // int *garr;
+    // cudaStat = cudaMalloc(&garr,n*sizeof(int));
+    // if (cudaStat != cudaSuccess) {
+    //     printf ("device memory allocation failed\n");
+    // }
+    // init<<<1,n>>>(garr,n);
+    // cudaDeviceSynchronize();
+    // add<<<1,n>>>(garr,n);
+    // cudaDeviceSynchronize();
+    // cudaMemcpy(arr,garr,n*sizeof(int),cudaMemcpyDeviceToHost);
+    // for(i = 0;i < n;++i){
+    //     printf("%d ",arr[i]);
+    // }
+    // printf("\n");
+    print<<<1,1>>>();
     cudaDeviceSynchronize();
-    add<<<1,n>>>(garr,n);
-    cudaDeviceSynchronize();
-    cudaMemcpy(arr,garr,n*sizeof(int),cudaMemcpyDeviceToHost);
-    for(i = 0;i < n;++i){
-        printf("%d ",arr[i]);
-    }
-    printf("\n");
     return 0;
 }
