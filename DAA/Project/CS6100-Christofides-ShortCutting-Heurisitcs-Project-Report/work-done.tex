@@ -1,0 +1,63 @@
+\chapter{Short-cutting heuristics}
+
+
+\section{Simple Heuristic}
+\begin{enumerate}
+    \item Remove repeated points in the Euler tour to get a Hamiltonian cycle.
+    \item Time complexity is $O(n)$
+\end{enumerate}
+% \includegraphics[scale=0.5]{simple.png}
+
+\section{Tri-Opt Heuristic}
+
+\begin{enumerate}
+    \item In this hurestic we take a Euler tour and greedily remove the repeated vertices
+    \item The hurestic value used is sum of distances from the vertex to adjacent vertices minus distance between the adjacent vertices
+    \item We can see that this is better than previous one but we are performing it on a Euler tour, hence there is still room for imprevement
+    \item Time complexity is $O(n)$
+\end{enumerate}
+% \includegraphics[scale=0.5]{simple.png}
+
+
+
+\section{Tri-Comp Heuristic}
+
+\begin{enumerate}
+    \item This hurestic is applied on Multi graph (H) instead of one Euler tour
+    \item Here we start with vertices of order greater than two and greedily remove its edges until its order is two
+    \item The idea is that in the final hamiltonian cycle which we need to arrive by short cutting has degree two for all the vertices
+    \item Two things we need to do are - pair up the free vertices formed greedily and make sure the process does not result in two disjoint components
+    \item The hurestic value here is sum of distances between paired up vertices and distace of two edges that remained with our vertex
+    \item Since our problem is in 2d space, each vertex in MST will have a degree of maximum 5, so our multi graph will have a maximum degree of 6. This property highly affect the theoritical complexity of our hurestic
+    \item Time complexity for checking the graph connectivity is $O(n)$ and for complete hurestic is $O(n^2)$
+\end{enumerate}
+% \includegraphics[scale=0.5]{simple.png}
+
+\section{DIH-Tri-Comp Heuristic}
+
+\begin{enumerate}
+    \item This hurestic is DIH(Degree Increasing Heuristic) optimization applied on the previous one
+    \item We want to increase the order of a vertex in MST by adding the vertices  of its children to itself
+    \item We can see that the tree is no longer MST but this process preserves the Euler tours i.e. the set of Euler tours of this tree is super set of that of the MST
+    \item This way we are applying hurestic on bigger space than that of the former one and have a chance of getting better results
+    \item  DIH can be implemented with $O(n)$, so comp hurestic is the bottleneck here. Overall complexity is $O(n^2)$
+\end{enumerate}
+% \includegraphics[scale=0.5]{simple.png}
+
+
+
+
+% Refer figure \ref{fig:label}
+
+% \begin{figure}[htb]
+% \centering
+% \includegraphics[scale=0.3]{./glider} % e.g. insert ./image for image.png in the working directory, adjust scale as necessary
+% \caption{<Caption here>}
+% \label{fig:label} % insert suitable label, this is used to refer to a fig from within the text as shown above
+% \end{figure}
+
+% \subsection{<Sub-section title>}
+
+
+% \section{<Section title>}
+

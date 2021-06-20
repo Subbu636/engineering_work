@@ -1,0 +1,4 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Plots of empirical error(left) and average reward(right) of sample test-beds with (en,ch, tol) values equal to (6,8,.2), (10,12,.25), (15,20,.2) respectively when algorithms 1 and 2 are used\relax }}{10}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Plots of empirical error(left) and average reward(right) of sample test-beds with Markov channel probabilities and (en,ch,tol) values equal to (3,3,.3), (4,5,.35), (6,8,.2) respectively when algorithm 3 is used\relax }}{11}{figure.caption.9}%
+\addvspace {10\p@ }

@@ -1,0 +1,66 @@
+\documentclass[solution,addpoints,12pt]{exam}
+\printanswers
+\usepackage{amsmath,amssymb}
+\newcommand{\tsp}{{\sf TSP}}
+\begin{document}
+
+\hrule
+\vspace{3mm}
+\noindent 
+{\sf IITM-CS6100 : Topics in Design and analysis of Algorithms  \hfill Given on: Feb 27}
+\vspace{3mm}\\
+\noindent 
+{\sf Problem Set \#1 \hfill Due on : Mar 14, 23:55}
+{\hfill \sf Evaluation Due on : Mar 20 }
+\vspace{3mm}
+\hrule
+{\small
+\begin{itemize}
+\item Turn in your solutions electronically at the moodle page. The submission should be a pdf file typeset either using     LaTeX or any other software that generates pdf. No handwritten solutions are accepted. 
+\item Collaboration is encouraged, but all write-ups must be done
+  individually and independently. For each question, you are required to mention the set of collaborators, if any.  
+ \item Submissions will be checked for {\bf plagiarism}. Each case of plagiarism will be reported to the institute disciplinary committee (DISCO). 
+\end{itemize}}
+\hrule
+\vspace{3mm}
+%\noindent {\sc Author :} Name. \\[1mm]
+%\noindent {\sc Collaborators :} \\
+%\hrule
+\begin{questions}
+\question[10]   Suppose $p_1,\ldots, p_n \in [0,1]^2$. Let $\tsp(p_1,\ldots, p_n)$ denote the smallest cost of a traveling salesman's tour on $p_1,\ldots, p_n$ with respect to Euclidean distance.
+\begin{parts}
+\part[6] For any $n>0$, show that  $\tsp(p_1,\ldots, p_n)  \le c \sqrt{n}$ for some constant $c>0$.
+\part[4] for any $n>0$, show that there are  $n$ points $q_1,\ldots, q_n \in [0,1]^2$ such that $\tsp(p_1,\ldots, p_n)  \ge c' \sqrt{n}$ for some constant $c'>0$.
+\end{parts}
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+\question[7]    This exercise to demonstrate the limitations of considering expected running time of an algorithm as a useful measure. For any $n>0$, describe  a function $f:\{0,1\}^n \to \mathbb{N}$ such that
+\begin{itemize}
+\item $\mathbb{E}[f] = \mathbb{E}_{x\in \{0,1\}^n}[f(x)] = n^c$ for some constant $c$ and
+\item ${\sf var}[f] = E[f^2] - (E[f])^2 = \Omega(2^n)$. 
+\end{itemize}
+I.e., there can be performance measures $f$ which is polynomial in expectation, but variance being exponential. Give formal justification for your answer (i.e., computation of expectation and variance for the function $f$ constructed).
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+
+
+\question[7] Obtain profits $p_1,\ldots, p_n$ and weights $w_1,\ldots, w_n$ for the knapsack problem so that $|{\cal P}|$ is exponential in $n$ (e.g $2^{\Omega(n)}$). Justify your answer.   
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+\question[6] Read the proof of Lemma 3.4 in the notes by Bodo Manthey (in the google drive shared with the class). The proof assumes that $a=(0,\ldots, 0)$ and $b=(\delta, 0,\ldots, 0)$. Why is this assumption without loss of generality? Justify your answer.
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+
+
+\end{questions}
+
+
+\end{document}

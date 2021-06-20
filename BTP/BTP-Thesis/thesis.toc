@@ -1,0 +1,16 @@
+\contentsline {chapter}{ACKNOWLEDGEMENTS}{i}{chapter*.1}%
+\contentsline {chapter}{ABSTRACT}{ii}{chapter*.2}%
+\contentsline {chapter}{LIST OF TABLES}{iv}{chapter*.4}%
+\contentsline {chapter}{LIST OF FIGURES}{v}{chapter*.5}%
+\contentsline {chapter}{ABBREVIATIONS}{vi}{chapter*.6}%
+\contentsline {chapter}{NOTATION}{vii}{chapter*.7}%
+\contentsline {chapter}{\numberline {1}INTRODUCTION}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Problem Formulation}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Algorithm}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Regret Analysis}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Some More Algorithms}{7}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Approximate Algorithm with Adaptive Tolerance}{7}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Problem with Markov Channel Probabilities}{8}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}Results}{9}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Conclusion and Future Work}{11}{section.1.6}%
+\contentsline {chapter}{\numberline {A}I}{13}{appendix.A}%

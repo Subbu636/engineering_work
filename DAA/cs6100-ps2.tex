@@ -1,0 +1,63 @@
+\documentclass[solution,12pt]{exam}
+%\printanswers
+\usepackage{amsmath,amssymb}
+\newcommand{\tsp}{{\sf TSP}}
+\begin{document}
+
+\hrule
+\vspace{3mm}
+\noindent 
+{\sf IITM-CS6100 : Topics in Design and analysis of Algorithms  \hfill Given on: Mar 23}
+\vspace{3mm}\\
+\noindent 
+{\sf Problem Set \#2 \hfill Due on : May 15, 23:55}
+{\hfill \sf Evaluation Due on : May 20 }
+\vspace{3mm}
+\hrule
+{\small
+\begin{itemize}
+\item Turn in your solutions electronically at the moodle page. The submission should be a pdf file typeset either using     LaTeX or any other software that generates pdf. No handwritten solutions are accepted. 
+\item Collaboration is encouraged, but all write-ups must be done
+  individually and independently. For each question, you are required to mention the set of collaborators, if any.  
+ \item Submissions will be checked for {\bf plagiarism}. Each case of plagiarism will be reported to the institute disciplinary committee (DISCO). 
+\end{itemize}}
+\hrule
+\vspace{3mm}
+%\noindent {\sc Author :} Name. \\[1mm]
+%\noindent {\sc Collaborators :} \\
+%\hrule
+\begin{questions}
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+\question[8]   Let $P = \{p_1,\ldots, p_n\}$ be a set of $n$ points from the unit square $[0,1]^2$. A triangulation $\tau$ of $P$ is a maximal planar graph with $P$ as the vertex set (i.e., the locations of points in $P$ should be an embedding of the graph). A minimum weight triangulation (denoted by mwt) is a triangulation with minimum total edge weight.  Let $MWT$ denote the corresponding Euclidean functional. The convex hull (denoted by $CH$) of $P$ is the smallest convex set (i.e. polygon) containing $P$. Let $|CH(P)|$ denote the number of vertices in the convex hull of $P$.  Suppose $Q_1,Q_2, Q_3$ and $Q_4$ be a partition of $[0,1]^2$ of equal sized squares. Show that
+$$ MWT(P, [0,1]^2) \le \sum_{i=1}^4 MWT(P\cap Q_i, Q_i) + \sum_{i=1}^4 O(|CH(P\cap Q_i)|).$$
+\question[16] In the vehicle routing problem, we are given a set of depots $D = \{d_1,\ldots, d_k\}$ from $[0,1]^d$ and a set of $n$ points  $ P =\{p_1,\ldots, p_n\}$  (called customers) which are again  points from $[0,1]^d$. The job is to compute minimum cost $k$ vertex disjoint cycles such that every cycle has exactly one depot and every depot is in exactly one cycle.  Let $MDP$ denote the corresponding Euclidean functional. 
+\begin{parts}
+\part[7] Formally define the functional $MDP$.     Prove that $MDP$ is subadditive but not superadditive.
+\part[9] Define a canonical  boundary functional $MDP_B$ for $MDP$ and show that it is superadditive. Show that the boundary functional is also a  smooth Euclidean functional. 
+\end{parts}
+ 
+
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+
+
+\question[6] Refer to phase 3 of the algorithm for computing Hamiltonian cycle given in Page 6 of  Frieze's survey.   Show that for any tractable graph, the phase 3 of the algorithm always succeeds in computing a Hamiltonian cycle, if exists. 
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+ 
+%\begin{solution}
+%{\bf Collaborators}:\\ 
+%Write solutions  afer uncommenting the lines above and below.
+%\end{solution}
+
+\end{questions}
+
+
+\end{document}
