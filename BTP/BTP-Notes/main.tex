@@ -18,9 +18,9 @@ cs17b005 \hfill\\
 \begin{minipage}{0.4\textwidth} 
 \centering 
 \large 
-Project Knowledge Base\\ 
+Project Thesis Extra/Continuation\\ 
 \normalsize 
-Linear Bandits\\ 
+Encoder Selection\\ 
 \end{minipage}
 \begin{minipage}{0.295\textwidth} 
 \raggedleft
@@ -33,7 +33,32 @@ Linear Bandits\\
 %	CONTENTS
 %-------------------------------
 
-\section{RLS Estimates and Bounds}
+\section{Regret Analysis}
+
+\subsection{Martingale Sequence}
+A sequence of random variables is called Martingale if the conditional expectation of next vatiable w.r.t all the previous variables is equal to present variable 
+$$ E(X_{t+1}|X_t,...,X_2,X_1) = X_t $$
+General expectation must also be bounded 
+$$ E(X_i) \leq C $$
+
+\subsection{Azuma Hoefding Inequality}
+If $Y_t$ is Martingale and diffrence between consecutive terms is bounded i.e. $|Y_t - Y_{t-1}| \leq c$ then we can say that
+\begin{equation}
+    P{\left[Y_t > c\sqrt{2t\log{\frac{1}{\gamma}}}\right]} \leq \gamma
+\end{equation}
+This is simpler version of the original inequality and can also be viewed as - 
+$ Y_t \leq c\sqrt{2t\log{\frac{1}{\gamma}}} $ holds with probability $ 1-\gamma $
+
+\subsection{Continuation}
+We can write the final equation of Regret Analysis as -
+$$ reg_t \leq \frac{a \cdot \beta_t}{b + c\cdot\beta_t } $$
+Consider $ Y_t = \sum_{s = 1}^t reg_s =  \sum_{s = 1}^t (R\cdot (x_* - x_t)) $ as Martingale. This makes sense because in any bandit problem involving building we construct confidence sets using all the previous variables and pick next action i.e. $ x_t $ is a function of $ x_1, \mu_1, ... , x_{t-1}, \mu_{t-1} $. To strengthen this statment few bandit papers just solve for regret assuming martingale and in Improved Algorithms paper he says a similar term to be martingale. We also know that - 
+$$ |Y_t - Y_{t-1}| = reg_t \leq \frac{a \cdot \beta_t}{b + c\cdot\beta_t } \leq \frac{a \cdot \beta_T}{b + c\cdot\beta_T } $$
+By using above described inequality with confidence $\delta$
+$$ P{\left[Y_T > \frac{a \cdot \beta_T}{b + c\cdot\beta_T} \cdot \sqrt{2T\log{\frac{1}{\delta}}}\right]} \leq \delta $$
+So we can say with confidence $1-2\delta$ - As we have used $\delta$ confidence already to get bound on $reg_t$
+$$ R(T) = Y_T <= \frac{a \cdot \beta_T}{b + c\cdot\beta_T} \cdot \sqrt{2T\log{\frac{1}{\delta}}} $$
+
 
 
 
